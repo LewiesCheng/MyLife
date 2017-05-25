@@ -98,6 +98,7 @@ public class LifeListFragment extends Fragment {
                         mImageView_1.setImageBitmap(PictureUtils.getScaledBitmap(mPictures[0], getActivity()));
                     case 0:break;
                 }
+                mPictures = null;
             }
             mTitleTextView.setText(life.getTitle());
             mFeelTextView.setText(life.getFeel());
