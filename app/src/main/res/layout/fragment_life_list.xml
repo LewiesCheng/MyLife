@@ -15,11 +15,20 @@
     </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/float_bgm_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@drawable/ic_play_music"
+        app:layout_anchor="@id/life_recycler_view"
+        app:layout_anchorGravity="bottom|left|end"/>
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/float_action_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add_life"
+        android:src="@drawable/ic_add"
         app:layout_anchor="@id/life_recycler_view"
         app:layout_anchorGravity="bottom|right|end"/>
 

@@ -1,10 +1,13 @@
 package com.liucheng.android.mylife;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,7 +28,10 @@ public class LifeListFragment extends Fragment {
 
     private RecyclerView mRecyclerView;
     private LifeAdapter mAdapter;
+    private FloatingActionButton mMusicButton;
     private FloatingActionButton mAddLifeButton;
+
+    private static final String MUSIC_SERVICE = "com.liucheng.android.mylife.MusicService";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,6 +45,24 @@ public class LifeListFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.life_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        mMusicButton = (FloatingActionButton) view.findViewById(R.id.float_bgm_button);
+
+        mMusicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isWorked(getActivity(), MUSIC_SERVICE)){
+                    Intent intent = MusicService.newService(getActivity());
+                    getActivity().stopService(intent);
+                    mMusicButton.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_play_music));
+                } else {
+                    Intent intent = MusicService.newService(getActivity());
+                    getActivity().startService(intent);
+                    mMusicButton.setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.ic_pause_music));
+                }
+
+            }
+        });
+
         mAddLifeButton = (FloatingActionButton) view.findViewById(R.id.float_action_button);
         mAddLifeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,6 +75,24 @@ public class LifeListFragment extends Fragment {
         updateUI();
 
         return view;
+    }
+
+    /**
+     * 判断服务是否已经启动（来源于百度）
+     * @param className
+     * @return
+     */
+    private boolean isWorked(Context context, String className) {
+        ActivityManager myManager = (ActivityManager) context.getApplicationContext()
+                .getSystemService(Context.ACTIVITY_SERVICE);
+        ArrayList<ActivityManager.RunningServiceInfo> runningService =
+                (ArrayList<ActivityManager.RunningServiceInfo>) myManager.getRunningServices(60);
+        for (int i = 0; i < runningService.size(); i++) {
+            if (runningService.get(i).service.getClassName().equals(className)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private class LifeHolder extends RecyclerView.ViewHolder{
