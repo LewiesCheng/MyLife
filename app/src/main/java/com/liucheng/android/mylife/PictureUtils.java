@@ -12,6 +12,12 @@ import android.util.Log;
 
 public class PictureUtils {
 
+    /**
+     * 缩略图片
+     * @param path 图片的路径
+     * @param activaty
+     * @return
+     */
     public static Bitmap getScaledBitmap(String path, Activity activaty){
         Point size = new Point();
         activaty.getWindowManager().getDefaultDisplay().getSize(size);

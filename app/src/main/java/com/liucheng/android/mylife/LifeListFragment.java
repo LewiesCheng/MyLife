@@ -22,6 +22,7 @@ import java.util.List;
 
 /**
  * Created by liucheng on 2017/5/17.
+ * 主界面
  */
 
 public class LifeListFragment extends Fragment {
@@ -45,8 +46,10 @@ public class LifeListFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.life_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
+        /**
+         * 播放音乐
+         */
         mMusicButton = (FloatingActionButton) view.findViewById(R.id.float_bgm_button);
-
         mMusicButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,6 +66,9 @@ public class LifeListFragment extends Fragment {
             }
         });
 
+        /**
+         * 添加记录
+         */
         mAddLifeButton = (FloatingActionButton) view.findViewById(R.id.float_action_button);
         mAddLifeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +78,9 @@ public class LifeListFragment extends Fragment {
             }
         });
 
+        /**
+         * 更新页面
+         */
         updateUI();
 
         return view;
@@ -95,6 +104,9 @@ public class LifeListFragment extends Fragment {
         return false;
     }
 
+    /**
+     *
+     */
     private class LifeHolder extends RecyclerView.ViewHolder{
         private ImageView mImageView_1;
         private ImageView mImageView_2;
